@@ -6,7 +6,7 @@
 />
 
 # mini-qr-api - inspired by MiniQR
-[![Docker Image Version (latest semver)](https://img.shields.io/docker/v/elderflowa/honey-dynamic?label=elderflowa/honey-dynamic:latest&logo=docker)](https://hub.docker.com/r/elderflowa/honey-dynamic)
+[![](https://img.shields.io/badge/github-mini--qr--api-blue?style=flat&logo=github)](https://github.com/elderflowa/mini-qr-api/releases)
 
 **mini-qr-api** is a simple program that generates customizable QR-codes. 
 It has user accounts, template management, and a public `/?data=` endpoint, for easy use with queries.
