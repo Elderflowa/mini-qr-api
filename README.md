@@ -1,8 +1,40 @@
-# mini-qr-api
+<img
+  src="https://raw.githubusercontent.com/Elderflowa/mini-qr-api/refs/heads/main/qr.png"
+  alt="Logo"
+  width="56"
+  height="56"
+/>
 
-Self-hosted QR code generator with user accounts, template management, and a public `/?data=` endpoint.
+# mini-qr-api - inspired by MiniQR
+[![Docker Image Version (latest semver)](https://img.shields.io/docker/v/elderflowa/honey-dynamic?label=elderflowa/honey-dynamic:latest&logo=docker)](https://hub.docker.com/r/elderflowa/honey-dynamic)
+
+**mini-qr-api** is a simple program that generates customizable QR-codes. 
+It has user accounts, template management, and a public `/?data=` endpoint, for easy use with queries.
+
+**DISCLAIMER**:
+Heavily inspired by [MiniQR](https://github.com/lyqht/mini-qr).
+Coded with the use of Claude AI.
+
+## Features
+
+- **User accounts** — register/login with username + password
+- **Templates** - tied to user accounts.
+- **Admin panel** — toggle signups on/off, manage users, set global default QR template
+- **Public QR endpoint** — `GET /qr?data=<url>` renders a fullscreen QR using the global default template, no login required
+
+## Screenshot
+| Configuration Page                                                                             |
+| ---------------------------------------------------------------------------------------------- |
+| <img src="https://raw.githubusercontent.com/Elderflowa/mini-qr-api/refs/heads/main/example.png" alt="Configuration" /> |
+---
 
 ## Quick start
+Clone this repo
+
+```bash
+git clone https://github.com/elderflowa/mini-qr-api
+cd mini-qr-api
+```
 
 ```bash
 cp .env.example .env
@@ -17,27 +49,18 @@ Default admin credentials: `admin` / `admin` (or whatever you set `ADMIN_PASSWOR
 
 ---
 
-## Features
-
-- **User accounts** — register/login with username + password
-- **Admin panel** — toggle signups on/off, manage users, set global default QR template
-- **Templates** — create named QR styles:
-  - *Classic* — plain black & white, no frills
-  - *Custom* — choose dot style, corner style, primary/secondary/background colors, upload a logo
-- **Public QR endpoint** — `GET /qr?data=<url>` renders a fullscreen QR using the global default template, no login required
-
 ## NPM proxy setup
 
-In NPM, add the `qr.eldr.uk` proxy host pointing to the frontend container on port 80.
+In NPM, add the `qr.mydomain.com` proxy host pointing to the frontend container on port 80.
 
-To support `qr.eldr.uk/https://example.com` style URLs, add this in the Advanced tab:
+To support `qr.mydomain.com/https://example.com` style URLs, add this in the Advanced tab:
 
 ```nginx
 merge_slashes off;
-rewrite ^/(.+)$ /qr?data=$1 redirect;
+rewrite ^/(https?://.+)$ /?data=$1 redirect;
 ```
 
-Or just use `qr.eldr.uk/qr?data=https://example.com` directly — no rewrite needed.
+Or just use `qr.mydomain.com/?data=https://example.com` directly — no rewrite needed.
 
 ## Environment variables
 
@@ -47,8 +70,3 @@ Or just use `qr.eldr.uk/qr?data=https://example.com` directly — no rewrite nee
 | `JWT_SECRET`     | `change-me-in-production`  | Secret for signing JWTs              |
 | `ADMIN_PASSWORD` | `admin`                    | Initial admin password (first boot)  |
 
-## Data persistence
-
-Data is stored in Docker named volumes:
-- `qr-query_data` — SQLite database
-- `qr-query_uploads` — uploaded logo files
