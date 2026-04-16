@@ -1,0 +1,32 @@
+services:
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    environment:
+      - PORT=3001
+      - JWT_SECRET=${JWT_SECRET:-change-me-in-production}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
+      - DB_PATH=/app/data/qrforge.db
+      - UPLOADS_DIR=/app/uploads
+    volumes:
+      - qrforge_data:/app/data
+      - qrforge_uploads:/app/uploads
+    networks:
+      - internal
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    ports:
+      - "${PORT:-3232}:80"
+    depends_on:
+      - backend
+    networks:
+      - internal
+
+volumes:
+  qrforge_data:
+  qrforge_uploads:
+
+networks:
+  internal:

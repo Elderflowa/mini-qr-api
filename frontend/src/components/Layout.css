@@ -1,0 +1,53 @@
+.layout { display: flex; height: 100vh; overflow: hidden; }
+
+.sidebar {
+  width: 200px; flex-shrink: 0;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  padding: 14px 10px;
+  transition: background .2s, border-color .2s;
+}
+
+.sidebar-logo {
+  padding: 2px 8px 14px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 10px;
+}
+.logo-text {
+  font-family: var(--mono); font-size: 13px; font-weight: 700;
+  color: var(--accent); letter-spacing: .04em;
+}
+
+.sidebar-nav { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+
+.nav-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 9px; border-radius: 6px;
+  color: var(--text-dim); font-size: 13px; font-weight: 500;
+  transition: all .15s; text-decoration: none;
+}
+.nav-item svg { flex-shrink: 0; }
+.nav-item:hover { background: var(--surface2); color: var(--text); text-decoration: none; }
+.nav-item.active { background: rgba(232,131,58,.12); color: var(--accent); }
+
+.sidebar-footer {
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.sidebar-user { display: flex; align-items: center; gap: 8px; padding: 0 2px; }
+.user-avatar {
+  width: 26px; height: 26px;
+  background: var(--accent); color: #fff;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 11px; flex-shrink: 0;
+}
+.user-info { min-width: 0; }
+.user-name { font-size: 12px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.sidebar-actions { display: flex; gap: 6px; }
+.icon-btn { padding: 5px 8px !important; flex-shrink: 0; }
+.sidebar-actions .btn { flex: 1; justify-content: center; font-size: 12px; }
+
+.main-content { flex: 1; overflow-y: auto; padding: 24px; }
